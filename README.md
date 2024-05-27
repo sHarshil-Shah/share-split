@@ -1,34 +1,37 @@
-This program calculates individual shares for multiple items, considering discounts, taxes, and who participated in each item.
+# Efficient Split Calculator
 
-Features:
+This Python program calculates the share of each person for multiple items, considering discounts and taxes. It helps to distribute the costs fairly among a group of people.
 
-Calculates individual shares for each item and total share across all items.
-Applies discounts proportionally to each person's share.
-Accounts for taxes on specified taxable items.
-Handles situations where not everyone participates in all items.
-Usage:
+## Features
 
-Install dependencies (if any): No external libraries are required for this program.
-Edit items list: This list defines each item with its name, value, taxable flag, and list of participants (using the PERSONS enum).
-Set tax_rate and total_discount: These variables define the tax rate (percentage) and total discount amount.
-Run the script: Execute the script to see the calculated individual shares and total tax amount.
-Output:
+- Calculate the individual share for each person based on the number of items they purchased.
+- Apply discounts to the total value of the order.
+- Apply taxes to taxable items.
+- Display the total share for each person.
+- Display the itemized share for each person.
 
-Total value of all items.
-Discount rate based on total discount and total value.
-Individual's name and total share across all items.
-Breakdown of each individual's share per item (excluding items with zero share).
-List of unique item names.
-Example:
+## Usage
 
-The provided example calculates shares for five items with varying participants, discounts, and tax implications.
+1. Define the list of items with their respective details (name, value, people involved, and taxable status) in the `items` list.
+2. Set the `tax_rate` and `total_discount` values according to your requirements.
+3. Run the program, and it will output the total share and itemized share for each person involved.
 
-Note:
+## Example
 
-This program assumes equal splitting among participants for each item.
-You can modify the logic within the calculate_share function to implement custom splitting rules (e.g., splitting based on quantity consumed).
-Further Enhancements:
-
-Ability to define custom splitting rules per item.
-Support for different tax rates for various item categories.
-Integration with a user interface for easier input and output.
+```python
+items = [
+   {
+       "name": "Ginger",
+       "value": 0.61,
+       "taxable": False,
+       "people": [PERSONS.RAJ, PERSONS.HARSHIL, PERSONS.PARAS, PERSONS.VIRAL, PERSONS.SHUBHAM]
+   },
+   {
+       "name": "Oats",
+       "value": 2.76,
+       "people": [PERSONS.RAJ],
+       "taxable": False,
+   },
+   # ... (more items)
+]
+```
