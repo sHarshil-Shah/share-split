@@ -1,4 +1,7 @@
-def calculate_share(items_arg, discount_rate, tax_rate):
+from item import tax_rate
+
+
+def calculate_share(items_arg, discount_rate):
     """
   This function calculates the share for each person for multiple items.
 

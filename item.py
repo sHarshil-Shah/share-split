@@ -84,3 +84,6 @@ items = [
         "people": [PERSONS.HARSHIL, PERSONS.RAJ, PERSONS.RAJ, PERSONS.VIRAL, PERSONS.VIRAL, PERSONS.HRISHI]
     },
 ]
+
+tax_rate = 15  # 15% tax rate
+total_discount = 14.98  # total discount

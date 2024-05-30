@@ -1,15 +1,12 @@
-from item import items
+from item import items, total_discount
 from funcs import get_unique_item_names, calculate_share
-
-tax_rate = 15  # 15% tax rate
-total_discount = 14.98  # total discount
 
 total_value = sum(item["value"] for item in items)
 print("total value", total_value)
 discount_rate = total_discount * 100 / total_value  # calculate discount rate
 print("discount rate", discount_rate)
 
-shares = calculate_share(items, discount_rate, tax_rate)
+shares = calculate_share(items, discount_rate)
 
 print()
 for person in shares:
