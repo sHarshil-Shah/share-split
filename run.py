@@ -1,5 +1,5 @@
 from item import items
-from main import get_unique_item_names, calculate_share
+from funcs import get_unique_item_names, calculate_share
 
 tax_rate = 15  # 15% tax rate
 total_discount = 14.98  # total discount
