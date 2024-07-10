@@ -6,11 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Share Calculator</title>
     <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
         body {
             font-family: Arial, sans-serif;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
         }
 
         h1 {
@@ -49,12 +57,43 @@
             display: inline-block;
             margin-right: 10px;
         }
+
+      
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #f0f0f0;
+  color: black;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  z-index: 999; /* Adjust z-index as needed */
+}
+Use cod
+        footer a {
+            color: blue;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 
 <body>
+
+
     <h1>Share Calculator</h1>
 
+    <div class="input-group">
+        <label for="people">People (separated by ;):</label>
+        <input type="text" id="people" value="HARSHIL;PARTH;FORAM;TUSHAR;PARTH P;YASHS (SOUTH);NIXIT;ANUP;VACHA">
+    </div>
+
+    <hr />
     <div class="input-group">
         <label for="itemName">Item Name:</label>
         <input type="text" id="itemName">
@@ -73,10 +112,6 @@
         </select>
     </div>
 
-    <div class="input-group">
-        <label for="people">People (separated by ;):</label>
-        <input type="text" id="people" value="HARSHIL;PARTH;FORAM;TUSHAR;PARTH P;YASHS (SOUTH);NIXIT;ANUP;VACHA">
-    </div>
 
     <div class="input-group">
         <div id="checkboxContainer">
@@ -104,8 +139,9 @@
 
     <script>
         let items = [];
-        const PEOPLE = [];
+        let peopleLocked = false;
         const peopleInput = document.getElementById('people');
+        const PEOPLE = peopleInput.value.split(';').map(name => name.trim());
         const checkboxContainer = document.getElementById('checkboxContainer');
 
         function createCheckboxes(people) {
@@ -130,9 +166,13 @@
         }
 
         function updateCheckboxes() {
-            const people = peopleInput.value.split(';').map(name => name.trim());
-            createCheckboxes(people);
-            PEOPLE = people;
+            if (!peopleLocked) {
+                const people = peopleInput.value.split(';').map(name => name.trim());
+                createCheckboxes(people);
+                PEOPLE = people;
+            } else {
+                alert("Changing People is not permitted once any item is added!")
+            }
         }
 
         // Initial checkbox creation
@@ -155,8 +195,19 @@
 
             items.push({ name, value, taxable, people });
 
+            lockPeople();
             updateItemList();
             clearInputs();
+        }
+
+        function lockPeople() {
+            peopleLocked = true;
+            peopleInput.disabled = true;
+        }
+
+        function unlockPeople() {
+            peopleLocked = false;
+            peopleInput.disabled = false;
         }
 
         function updateItemList() {
@@ -169,6 +220,9 @@
 
         function removeItem(index) {
             items.splice(index, 1);
+            if (items.length === 0) {
+                unlockPeople();
+            }
             updateItemList();
         }
 
@@ -246,6 +300,10 @@
             document.getElementById('results').textContent = output;
         }
     </script>
+
+    <footer>
+        For Code, Check out: <a href="https://github.com/sHarshil-Shah/share-split">GitHub Repository</a>
+    </footer>
 </body>
 
 </html>
