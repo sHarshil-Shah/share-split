@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: inline-block;
+            width: 150px;
+        }
+
+        input,
+        select {
+            width: 200px;
+        }
+
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+        }
+
+        #itemList {
+            margin-bottom: 20px;
+        }
+
+        #results {
+            white-space: pre-wrap;
+        }
+
+        .checkbox-group {
+            display: inline-block;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Share Calculator</h1>
+
+    <div class="input-group">
+        <label for="itemName">Item Name:</label>
+        <input type="text" id="itemName">
+    </div>
+
+    <div class="input-group">
+        <label for="itemValue">Item Value:</label>
+        <input type="number" id="itemValue" step="0.01">
+    </div>
+
+    <div class="input-group">
+        <label for="isTaxable">Taxable:</label>
+        <select id="isTaxable">
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <label for="people">People (separated by ;):</label>
+        <input type="text" id="people" value="HARSHIL;PARTH;FORAM;TUSHAR;PARTH P;YASHS (SOUTH);NIXIT;ANUP;VACHA">
+    </div>
+
+    <div class="input-group">
+        <div id="checkboxContainer">
+
+        </div>
+    </div>
+
+    <button onclick="addItem()">Add Item</button>
+
+    <div id="itemList"></div>
+
+    <div class="input-group">
+        <label for="totalDiscount">Total Discount:</label>
+        <input type="number" id="totalDiscount" step="0.01" value="0">
+    </div>
+
+    <div class="input-group">
+        <label for="taxRate">Tax Rate (%):</label>
+        <input type="number" id="taxRate" value="13">
+    </div>
+
+    <button onclick="calculate()">Calculate Shares</button>
+
+    <pre id="results"></pre>
+
+    <script>
+        let items = [];
+        const PEOPLE = [];
+        const peopleInput = document.getElementById('people');
+        const checkboxContainer = document.getElementById('checkboxContainer');
+
+        function createCheckboxes(people) {
+            checkboxContainer.innerHTML = '';
+            people.forEach(person => {
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = person;
+                checkbox.value = person;
+
+                const label = document.createElement('label');
+                label.htmlFor = person;
+                label.textContent = person;
+
+                const checkboxGroup = document.createElement('div');
+                checkboxGroup.classList.add('checkbox-group');
+                checkboxGroup.appendChild(checkbox);
+                checkboxGroup.appendChild(label);
+
+                checkboxContainer.appendChild(checkboxGroup);
+            });
+        }
+
+        function updateCheckboxes() {
+            const people = peopleInput.value.split(';').map(name => name.trim());
+            createCheckboxes(people);
+            PEOPLE = people;
+        }
+
+        // Initial checkbox creation
+        createCheckboxes(peopleInput.value.split(';').map(name => name.trim()));
+
+        // Add event listener
+        peopleInput.addEventListener('input', updateCheckboxes);
+
+
+        function addItem() {
+            const name = document.getElementById('itemName').value;
+            const value = parseFloat(document.getElementById('itemValue').value);
+            const taxable = document.getElementById('isTaxable').value === 'true';
+            const people = PEOPLE.filter(person => document.getElementById(person).checked);
+
+            if (!name || isNaN(value) || people.length === 0) {
+                alert('Please fill all fields and select at least one person.');
+                return;
+            }
+
+            items.push({ name, value, taxable, people });
+
+            updateItemList();
+            clearInputs();
+        }
+
+        function updateItemList() {
+            const itemList = document.getElementById('itemList');
+            itemList.innerHTML = items.map((item, index) =>
+                `<div>${item.name} - $${item.value.toFixed(2)} (${item.taxable ? 'Taxable' : 'Non-taxable'}) - ${item.people.join(', ')} 
+                <button onclick="removeItem(${index})">Remove</button></div>`
+            ).join('');
+        }
+
+        function removeItem(index) {
+            items.splice(index, 1);
+            updateItemList();
+        }
+
+        function clearInputs() {
+            document.getElementById('itemName').value = '';
+            document.getElementById('itemValue').value = '';
+            document.getElementById('isTaxable').value = 'false';
+            PEOPLE.forEach(person => document.getElementById(person).checked = false);
+        }
+
+        function calculate() {
+            const totalDiscount = parseFloat(document.getElementById('totalDiscount').value) || 0;
+            const taxRate = parseFloat(document.getElementById('taxRate').value) || 0;
+
+            if (items.length === 0) {
+                alert('Please add at least one item before calculating.');
+                return;
+            }
+
+            const totalValue = items.reduce((sum, item) => sum + item.value, 0);
+            const discountRate = totalValue > 0 ? (totalDiscount * 100) / totalValue : 0;
+
+            const shares = calculateShare(items, discountRate, taxRate);
+
+            displayResults(shares);
+        }
+
+        function calculateShare(items, discountRate, taxRate) {
+            const allPeople = new Set(items.flatMap(item => item.people));
+            const results = [];
+            let totalTax = 0;
+
+            for (const personName of allPeople) {
+                let personShare = [];
+                let totalShare = 0;
+
+                for (const item of items) {
+                    let shareValue = 0;
+                    if (item.people.includes(personName)) {
+                        let itemVal = item.value * (1 - discountRate / 100);
+                        shareValue = itemVal / item.people.length;
+                        if (item.taxable) {
+                            totalTax += shareValue * taxRate / 100;
+                            shareValue *= (1 + taxRate / 100);
+                        }
+                        totalShare += shareValue;
+                    }
+                    personShare.push({ item_name: item.name, share_value: shareValue });
+                }
+
+                results.push({ name: personName, share: personShare, total_share: totalShare });
+            }
+
+            return { shares: results, totalTax };
+        }
+
+        function displayResults(result) {
+            let output = `Total Tax: $${result.totalTax.toFixed(2)}\n\n`;
+
+            for (const person of result.shares) {
+                output += `${person.name}'s share: $${person.total_share.toFixed(2)}\n`;
+            }
+
+            output += '\nDetailed breakdown:\n';
+
+            for (const person of result.shares) {
+                output += `\n${person.name}'s share:\n`;
+                for (const item of person.share) {
+                    if (item.share_value > 0) {
+                        output += `  - ${item.item_name}: $${item.share_value.toFixed(2)}\n`;
+                    }
+                }
+            }
+
+            document.getElementById('results').textContent = output;
+        }
+    </script>
+</body>
+
+</html>
