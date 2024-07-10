@@ -14,7 +14,7 @@
 
         body {
             font-family: Arial, sans-serif;
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
             padding: 20px;
             display: flex;
@@ -31,12 +31,12 @@
 
         label {
             display: inline-block;
-            width: 150px;
+            width: 300px;
         }
 
         input,
         select {
-            width: 200px;
+            width: 400px;
         }
 
         button {
@@ -81,6 +81,14 @@
         footer a:hover {
             text-decoration: underline;
         }
+
+        .big-label{
+            width: 200px;   
+        }
+
+        .big-input{
+            width: 450px;
+        }
     </style>
 </head>
 
@@ -90,8 +98,8 @@
     <h1>Share Calculator</h1>
 
     <div class="input-group">
-        <label for="people">People (separated by ;):</label>
-        <input type="text" id="people" value="HARSHIL;PARTH;FORAM;TUSHAR;PARTH P;YASHS (SOUTH);NIXIT;ANUP;VACHA">
+        <label class="big-label" for="people">People (separated by ;):</label>
+        <input class="big-input" type="text" id="people" value="HARSHIL;PARTH;FORAM;TUSHAR;PARTH P;YASHS (SOUTH);NIXIT;ANUP;VACHA">
     </div>
 
     <hr />
