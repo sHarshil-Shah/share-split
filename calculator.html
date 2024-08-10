@@ -12,6 +12,10 @@
             margin: 0;
         }
 
+        .body2 {
+            margin-bottom: 50px !important;
+        }
+
         body {
             font-family: Arial, sans-serif;
             max-width: 850px;
@@ -71,7 +75,6 @@
             text-align: center;
             padding: 10px;
             z-index: 2147483647;
-            margin-top: 20px;
         }
 
         Use cod footer a {
@@ -83,11 +86,11 @@
             text-decoration: underline;
         }
 
-        .big-label{
-            width: 200px;   
+        .big-label {
+            width: 200px;
         }
 
-        .big-input{
+        .big-input {
             width: 450px;
         }
     </style>
@@ -97,56 +100,57 @@
 
 
     <h1>Share Calculator</h1>
-
-    <div class="input-group">
-        <label class="big-label" for="people">People (separated by ;):</label>
-        <input class="big-input" type="text" id="people" value="HARSHIL;PARTH;FORAM;TUSHAR;PARTH P;YASHS (SOUTH);NIXIT;ANUP;VACHA">
-    </div>
-
-    <hr />
-    <div class="input-group">
-        <label for="itemName">Item Name:</label>
-        <input type="text" id="itemName">
-    </div>
-
-    <div class="input-group">
-        <label for="itemValue">Item Value:</label>
-        <input type="number" id="itemValue" step="0.01">
-    </div>
-
-    <div class="input-group">
-        <label for="isTaxable">Taxable:</label>
-        <select id="isTaxable">
-            <option value="true">Yes</option>
-            <option value="false">No</option>
-        </select>
-    </div>
-
-
-    <div class="input-group">
-        <div id="checkboxContainer">
-
+    <div class="body2">
+        <div class="input-group">
+            <label class="big-label" for="people">People (separated by ;):</label>
+            <input class="big-input" type="text" id="people"
+                value="HARSHIL;PARTH;FORAM;PARTH P;YASHS (SOUTH);TUSHAR;NIXIT;ANUP;VACHA">
         </div>
+
+        <hr />
+        <div class="input-group">
+            <label for="itemName">Item Name:</label>
+            <input type="text" id="itemName">
+        </div>
+
+        <div class="input-group">
+            <label for="itemValue">Item Value:</label>
+            <input type="number" id="itemValue" step="0.01">
+        </div>
+
+        <div class="input-group">
+            <label for="isTaxable">Taxable:</label>
+            <select id="isTaxable">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+        </div>
+
+
+        <div class="input-group">
+            <div id="checkboxContainer">
+
+            </div>
+        </div>
+
+        <button onclick="addItem()">Add Item</button>
+
+        <div id="itemList"></div>
+
+        <div class="input-group">
+            <label for="totalDiscount">Total Discount ($):</label>
+            <input type="number" id="totalDiscount" step="0.01" value="0">
+        </div>
+
+        <div class="input-group">
+            <label for="taxRate">Tax Rate (%):</label>
+            <input type="number" id="taxRate" value="13">
+        </div>
+
+        <button onclick="calculate()">Calculate Shares</button>
+
+        <pre id="results"></pre>
     </div>
-
-    <button onclick="addItem()">Add Item</button>
-
-    <div id="itemList"></div>
-
-    <div class="input-group">
-        <label for="totalDiscount">Total Discount:</label>
-        <input type="number" id="totalDiscount" step="0.01" value="0">
-    </div>
-
-    <div class="input-group">
-        <label for="taxRate">Tax Rate (%):</label>
-        <input type="number" id="taxRate" value="13">
-    </div>
-
-    <button onclick="calculate()">Calculate Shares</button>
-
-    <pre id="results"></pre>
-
     <script>
         let items = [];
         let peopleLocked = false;
