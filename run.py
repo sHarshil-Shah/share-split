@@ -4,7 +4,7 @@ from funcs import get_unique_item_names, calculate_share
 total_value = sum(item["value"] for item in items)
 print("total value", total_value)
 discount_rate = total_discount * 100 / total_value  # calculate discount rate
-print("discount rate", discount_rate)
+# print("discount rate", discount_rate)
 
 shares = calculate_share(items, discount_rate)
 
