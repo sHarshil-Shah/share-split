@@ -147,7 +147,12 @@
         let items = [];
         let peopleLocked = false;
         const peopleInput = document.getElementById('people');
-        const PEOPLE = peopleInput.value.split(';').map(name => name.trim());
+        // Get people from localStorage if available
+        const cachedPeople = localStorage.getItem('peopleNames');
+        if (cachedPeople) {
+            peopleInput.value = cachedPeople;
+        }
+        let PEOPLE = peopleInput.value.split(';').map(name => name.trim());
         const checkboxContainer = document.getElementById('checkboxContainer');
 
         function createCheckboxes(people) {
@@ -176,6 +181,8 @@
                 const people = peopleInput.value.split(';').map(name => name.trim());
                 createCheckboxes(people);
                 PEOPLE = people;
+                // Save to localStorage
+                localStorage.setItem('peopleNames', peopleInput.value);
             } else {
                 alert("Changing People is not permitted once any item is added!")
             }
