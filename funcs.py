@@ -1,6 +1,12 @@
 from item import tax_rate
 
 
+def _person_key(person):
+    if isinstance(person, dict):
+        return person.get("name")
+    return person
+
+
 def calculate_share(items_arg, discount_rate):
     """
   This function calculates the share for each person for multiple items.
@@ -20,7 +26,8 @@ def calculate_share(items_arg, discount_rate):
 
     all_people = set()  # Collect all unique people across items
     for item in items_arg:
-        all_people.update(person1 for person1 in item["people"])
+        for person in item["people"]:
+            all_people.add(_person_key(person))
 
     results = []
     total_tax = 0
@@ -28,19 +35,19 @@ def calculate_share(items_arg, discount_rate):
         person_share = []
         total_share = 0
         for item in items_arg:
-            # Find the share value for this person in the current item
-            share_value = 0
-            for person in item["people"]:
-                item_val = item["value"]
-                if person == person_name:
-                    item_val *= (1 - discount_rate / 100)
+            participant_count = len(item["people"])
+            matching_count = sum(
+                1 for person in item["people"] if _person_key(person) == person_name
+            )
 
-                    share_value = item_val / len(item["people"])  # Divide equally
-                    if item["taxable"]:
-                        total_tax += share_value * tax_rate / 100
-                        share_value *= (1 + tax_rate / 100)
-                    total_share += share_value
-                    # break
+            share_value = 0
+            if matching_count:
+                item_val = item["value"] * (1 - discount_rate / 100)
+                share_value = item_val * matching_count / participant_count
+                if item["taxable"]:
+                    total_tax += share_value * tax_rate / 100
+                    share_value *= (1 + tax_rate / 100)
+            total_share += share_value
             person_share.append({
                 "item_name": item["name"],
                 "share_value": share_value

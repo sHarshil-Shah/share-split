@@ -5,88 +5,65 @@ class PERSONS(Enum):
     MANOJ = 2
     MAITRI = 3
     SAKSHI = 4
+    ANUP = 5
+    PARTH = 6
+    TUSHAR = 7
+    JAYBHAI = 8,
+    NIXIT = 10,
+    MANISHA = 14
+
 
 items = [
-  {
-    "name": "Pepper, Green Bell",
-    "value": 1.85,
-    "taxable": False,
-    "people": [PERSONS.MANOJ, PERSONS.MAITRI, PERSONS.SAKSHI]
-  },
-  {
-    "name": "Eggplant, Large",
-    "value": 7.78,
-    "taxable": False,
-    "people": [PERSONS.MANOJ, PERSONS.MAITRI, PERSONS.SAKSHI, PERSONS.HARSHIL]
-  },
-  {
-    "name": "Tomato, Roma",
-    "value": 3.93,
-    "taxable": False,
-    "people": [PERSONS.MANOJ, PERSONS.MAITRI, PERSONS.SAKSHI]
-  },
-  {
-    "name": "Tomato, Roma",
-    "value": 3.93,
-    "taxable": False,
-    "people": [PERSONS.HARSHIL]
-  },
-  {
-    "name": "Sealtest Homogenized 3.25% Milk, 4 L",
-    "value": 5.81,
-    "taxable": False,
-    "people": [PERSONS.MANOJ, PERSONS.MAITRI, PERSONS.SAKSHI, PERSONS.HARSHIL]
-  },
-  {
-    "name": "ReaLemon Lemon Juice, 945 mL",
-    "value": 2.79,
-    "taxable": False,
-    "people": [PERSONS.MANOJ, PERSONS.MAITRI, PERSONS.SAKSHI]
-  },
-  {
-    "name": "Sealtest 35% Whipping Cream, 473 mL",
-    "value": 3.99,
-    "taxable": False,
-    "people": [PERSONS.MANOJ, PERSONS.MAITRI, PERSONS.SAKSHI]
-  },
-  {
-    "name": "Becel Margarine Original, 427g",
-    "value": 3.99,
-    "taxable": False,
-    "people": [PERSONS.MANOJ, PERSONS.MAITRI, PERSONS.SAKSHI]
-  },
-  {
-    "name": "Fairlife Chocolate Milk 2% Bottle, 1.5 L",
-    "value": 5.32,
-    "taxable": False,
-    "people": [PERSONS.MANOJ, PERSONS.MAITRI, PERSONS.SAKSHI]
-  },
-  {
-    "name": "Gits Khatta Dhokla Instant Mix (Qty 4)",
-    "value": 5.64,
-    "taxable": False,
-    "people": [PERSONS.MANOJ, PERSONS.MAITRI, PERSONS.SAKSHI, PERSONS.HARSHIL]
-  },
-  {
-    "name": "Febreze Plug In Air Freshener, Ocean Scent",
-    "value": 12.96,
-    "taxable": True, 
-    "people": [PERSONS.MANOJ, PERSONS.MAITRI, PERSONS.SAKSHI, PERSONS.HARSHIL]
-  },
-  {
-    "name": "Balderson 2 Year Old Cheddar Cheese, 500g",
-    "value": 15.60,
-    "taxable": False,
-    "people": [PERSONS.MANOJ, PERSONS.MAITRI, PERSONS.SAKSHI]
-  },
-  {
-    "name": "Lijjat Jeera Papad, 200g",
-    "value": 1.42,
-    "taxable": False,
-    "people": [PERSONS.MANOJ, PERSONS.MAITRI, PERSONS.SAKSHI, PERSONS.HARSHIL]
-  }
-]
+    {
+        "name": "ICE",
+        "value": 4.49,
+        "taxable": False,
+        "people": [PERSONS.HARSHIL, PERSONS.ANUP, PERSONS.ANUP, PERSONS.NIXIT, PERSONS.NIXIT, PERSONS.JAYBHAI, PERSONS.JAYBHAI, PERSONS.JAYBHAI, PERSONS.JAYBHAI, PERSONS.PARTH, PERSONS.PARTH, PERSONS.MANISHA],
+    },
+    {
+        "name": "Tim Hortons",
+        "value": 6.76,
+        "taxable": False,
+        "people": [PERSONS.HARSHIL, PERSONS.NIXIT],
+    },
+    {
+        "name": "Chair",
+        "value": 20,
+        "taxable": True,
+        "people": [PERSONS.ANUP],
+    },
+    {
+        "name": "Walmart Groceries",
+        "value": 76.57 + 58.99,
+        "taxable": False,
+        "people": [PERSONS.HARSHIL, PERSONS.ANUP, PERSONS.ANUP, PERSONS.NIXIT, PERSONS.NIXIT, PERSONS.JAYBHAI, PERSONS.JAYBHAI, PERSONS.JAYBHAI, PERSONS.JAYBHAI, PERSONS.PARTH, PERSONS.PARTH, PERSONS.MANISHA],
+    },
+    {
+        "name": "Hertz",
+        "value": 105,
+        "taxable": False,
+        "people": [PERSONS.HARSHIL, PERSONS.ANUP, PERSONS.ANUP, PERSONS.NIXIT, PERSONS.NIXIT],
+    },
+    {
+        "name": "Fire Wood",
+        "value": 5,
+        "taxable": False,
+        "people": [PERSONS.HARSHIL, PERSONS.ANUP, PERSONS.ANUP, PERSONS.NIXIT, PERSONS.NIXIT, PERSONS.JAYBHAI, PERSONS.JAYBHAI, PERSONS.JAYBHAI, PERSONS.JAYBHAI, PERSONS.PARTH, PERSONS.PARTH, PERSONS.MANISHA],
+    },
+    {
+        "name": "Indian store groceries",
+        "value": 111,
+        "taxable": False,
+        "people": [PERSONS.HARSHIL, PERSONS.ANUP, PERSONS.ANUP, PERSONS.NIXIT, PERSONS.NIXIT, PERSONS.JAYBHAI, PERSONS.JAYBHAI, PERSONS.JAYBHAI, PERSONS.JAYBHAI, PERSONS.PARTH, PERSONS.PARTH, PERSONS.MANISHA],
+    },
+    {
+        "name": "Pizza Pizza",
+        "value": 19.66,
+        "taxable": False,
+        "people": [PERSONS.HARSHIL, PERSONS.ANUP],
+    }
 
+]
 
 tax_rate = 13  # 13% tax rate
 total_discount = 0  # total discount
